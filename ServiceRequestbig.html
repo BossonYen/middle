@@ -22,7 +22,7 @@
             "text": "Fatigue"
         },
         "subject": {
-            "reference": "Patient/12345",
+            "reference": "Patient/12345"
         },
         "note": [
             {
@@ -50,7 +50,7 @@
        SQObj.subject.reference = "Patient/"+document.getElementById("ID").value;
        SQObj.occurrencePeriod.start = document.getElementById("first").value;
        SQObj.occurrencePeriod.end = document.getElementById("end").value;
-       SQObj.extension.valueInteger = document.getElementById("times").value;
+       SQObj.extension[0].valueInteger = document.getElementById("times").value;
        var id=document.getElementById("ID").value;
 
        var jsonStr = JSON.stringify(SQObj);
