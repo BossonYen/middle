@@ -47,7 +47,7 @@ function callBack() {
 } 
 function showData() 
 {
-    HTTPGetData("https://hapi.fhir.org/baseR4/ServiceRequest?subject="+document.getElementById("ID").value);        
+    HTTPGetData(FHIRrootURL+"/ServiceRequest?subject="+document.getElementById("ID").value);        
 }
    </script>			
 
