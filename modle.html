@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <script src="setting.js"></script>
+    <script src="Cookie.js"></script> 
+    <script src="HTTPlink.js"></script>
+    <script src="portal/portal-includes/js/session.js"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+    <p><label for="textbox">搜尋之病人ID：</label><input type="text" id="id">&nbsp;&nbsp;<input onclick="search()"  type="button" value="查詢" /></p>
+    <!-- 下拉框 -->
+    <p><label for="dropdown">選擇：</label><select id="dropdown"></select><br></p>
+    <p><input id="Button1" onclick="delet()"  type="button" value="刪除" /></p>
+</body>
+<script>
+var dropdown = document.getElementById("dropdown");
+function callBack(ret){
+    // 獲取下拉式選單元素
+    var myObj= JSON.parse(ret); 
+    HTTPGetData1("https://fhir.tcumi.com:58443/r5/fhir/ServiceRequest?based-on=ServiceRequest/"+myObj.entry[0].resource.id);
+}
+
+function search()
+{
+    HTTPGetData("https://fhir.tcumi.com:58443/r5/fhir/ServiceRequest?subject="+document.getElementById("id").value);
+}
+
+function delet(){
+    var selectElement = document.getElementById("dropdown");
+    var selectedValue = selectElement.value;
+    var apiURL=FHIRorgURL+"/ServiceRequest/"+selectedValue;
+    HTTPDeleteData(apiURL);
+}
+
+function callBack1(ret){
+    // 獲取下拉式選單元素
+
+    var myObj= JSON.parse(ret); 
+    for (var i = 0; i < myObj.entry.length; i++) 
+    {
+        var option = document.createElement("option");
+        option.text = "處方ID: "+myObj.entry[i].resource.id+" 回診日期: "+myObj.entry[i].resource.occurrenceDateTime;
+        option.value = myObj.entry[i].resource.id;
+        dropdown.add(option);
+    }
+}
+
+function HTTPGetData1(urlStr) {
+var HttpObj = new XMLHttpRequest();   
+HttpObj.onreadystatechange = function () {
+    if (HttpObj.readyState === 4) {
+        ret = HttpObj.responseText;
+        //   alert(ret);
+        callBack1(ret);
+     //   alert("data retrieved");
+    }
+}
+HttpObj.open("GET", urlStr, false);
+HttpObj.send();
+}
+</script>
+</html>
