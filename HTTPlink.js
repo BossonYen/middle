@@ -32,3 +32,17 @@ function HTTPPostData(urlStr, dataStr ) {
     HttpObj.send(dataStr);
   //  getData
 }
+
+function HTTPDeleteData(urlStr) {
+    var HttpObj = new XMLHttpRequest();
+    HttpObj.open("DELETE", urlStr, false);
+    HttpObj.onreadystatechange = function () {
+        if (HttpObj.readyState === 4) 
+        {
+            alert("刪除成功");
+            a();
+        }
+    }
+
+    HttpObj.send();
+}
