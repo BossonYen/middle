@@ -29,7 +29,7 @@ function search()
 function delet(){
     var selectElement = document.getElementById("dropdown");
     var selectedValue = selectElement.value;
-    var apiURL=FHIRorgURL+"/ServiceRequest/"+selectedValue;
+    var apiURL=FHIRrootURL+"/ServiceRequest/"+selectedValue;
     HTTPDeleteData(apiURL);
 }
 
