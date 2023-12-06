@@ -40,7 +40,6 @@ function HTTPDeleteData(urlStr) {
         if (HttpObj.readyState === 4) 
         {
             alert("刪除成功");
-            a();
         }
     }
 
